@@ -11,7 +11,7 @@
 		4FA1C7822A0680A200F1818B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA1C7812A0680A200F1818B /* LoginView.swift */; };
 		4FA1C7842A0680A300F1818B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA1C7832A0680A300F1818B /* Assets.xcassets */; };
 		4FA1C7882A0680A300F1818B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA1C7872A0680A300F1818B /* Preview Assets.xcassets */; };
-		4FFC31942A07E0B100A5998C /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC31932A07E0B100A5998C /* HomePageView.swift */; };
+		4FFC31942A07E0B100A5998C /* ProductDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC31932A07E0B100A5998C /* ProductDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +21,7 @@
 		4FA1C7832A0680A300F1818B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FA1C7852A0680A300F1818B /* swiftui_project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = swiftui_project.entitlements; sourceTree = "<group>"; };
 		4FA1C7872A0680A300F1818B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		4FFC31932A07E0B100A5998C /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
+		4FFC31932A07E0B100A5998C /* ProductDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +56,7 @@
 			children = (
 				4FA1C77F2A0680A200F1818B /* swiftui_projectApp.swift */,
 				4FA1C7812A0680A200F1818B /* LoginView.swift */,
-				4FFC31932A07E0B100A5998C /* HomePageView.swift */,
+				4FFC31932A07E0B100A5998C /* ProductDetailsView.swift */,
 				4FA1C7832A0680A300F1818B /* Assets.xcassets */,
 				4FA1C7852A0680A300F1818B /* swiftui_project.entitlements */,
 				4FA1C7862A0680A300F1818B /* Preview Content */,
@@ -143,7 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FA1C7822A0680A200F1818B /* LoginView.swift in Sources */,
-				4FFC31942A07E0B100A5998C /* HomePageView.swift in Sources */,
+				4FFC31942A07E0B100A5998C /* ProductDetailsView.swift in Sources */,
 				4FA1C7802A0680A200F1818B /* swiftui_projectApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
