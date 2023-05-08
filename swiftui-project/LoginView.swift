@@ -14,10 +14,10 @@ struct LoginView: View {
     @State private var isPasswordVisible = false;
     @State private var isEmailValid = true;
     @State private var showModal = false;
-    @State private var isActive = false;
+    @State private var path: [String] = [];
     
     var body: some View {
-        NavigationView{
+        NavigationStack(path: $path){
             VStack{
                 Image("Logo")
                     .resizable()
@@ -73,23 +73,26 @@ struct LoginView: View {
                 .cornerRadius(10.0)
                 .padding(.horizontal, 26)
                
-                NavigationLink(
-                    destination: ProductDetailsView(),
-                    isActive: $isActive,
-                    label: {
-                        Button(action: {
-                            self.validateLogin()
+               
+                    Button(action: {
+                             self.validateLogin()
+                        if isLoginValid {
+                            path.append("text")
+                        }
                             
                         }){
                             Text("Log in")
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 50)
-                                .background(isLoginValid ? Color.blue : Color.gray)
+                                .background( Color.blue)
                                 .cornerRadius(5.0)
                                 .padding(.top, 50)
-                        }})
-                .disabled(email.isEmpty || !isEmailValid || password.isEmpty);
+                        }
+                        .navigationDestination(for: String.self, destination: { text in
+                            ProductDetailsView()
+                        })
+                        
             }
             
             .frame(maxWidth: .infinity,maxHeight: .infinity)

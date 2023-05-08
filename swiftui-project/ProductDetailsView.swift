@@ -8,17 +8,16 @@
 import SwiftUI
 
 struct ProductDetailsView: View {
+    
     var body: some View {
-        NavigationView {
+       
             VStack(alignment: .leading) {
                 HStack {
-                    Button(action: {}, label: {
-                        Image(systemName: "chevron.backward")
-                            .font(.title2)
-                    })
+                    
                     Spacer()
                     Text("Product details")
                         .font(.title3)
+                       
                     Spacer()
                     Button(action: {}, label: {
                         Image(systemName: "cart.fill")
@@ -106,11 +105,11 @@ struct ProductDetailsView: View {
                 })
                 .padding(.horizontal,25)
             }
-            .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
+
         }
     }
-}
+
 
 struct ProductDetailsView_Previews: PreviewProvider {
     static var previews: some View {
