@@ -72,7 +72,7 @@ struct LoginView: View {
                 .background(.white)
                 .cornerRadius(10.0)
                
-                Button(action:loginModel.validateLogin){
+                Button(action:loginModel.login){
                         Text("Log in")
                             .foregroundColor(.white)
                             .padding(.vertical, 10)
@@ -81,7 +81,7 @@ struct LoginView: View {
                             .cornerRadius(5.0)
                             .padding(.top, 50)
                     }
-                .disabled(loginModel.email.isEmpty || loginModel.password.isEmpty)
+                .disabled(loginModel.email.isEmpty || loginModel.password.isEmpty || loginModel.isLoggingIn)
                 .navigationDestination(isPresented: $loginModel.isLoginValid, destination: {ProductDetailsView()})
             }
             
