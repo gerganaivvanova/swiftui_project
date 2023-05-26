@@ -28,7 +28,7 @@ struct LoginView: View {
                 Text("Log in")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(Color("TextColor"))
+                    .foregroundColor(Color("Textcolor"))
                     .frame(maxWidth:.infinity, alignment: .leading)
                 
                 TextField("Email", text: $loginModel.email)
@@ -81,7 +81,7 @@ struct LoginView: View {
                             .cornerRadius(5.0)
                             .padding(.top, 50)
                     }
-                .disabled(loginModel.email.isEmpty || loginModel.password.isEmpty || loginModel.isLoggingIn)
+                .disabled(loginModel.isLogInButtonDisabled() || !self.isEmailValid)
                 .navigationDestination(isPresented: $loginModel.isLoginValid, destination: {ProductDetailsView()})
             }
             

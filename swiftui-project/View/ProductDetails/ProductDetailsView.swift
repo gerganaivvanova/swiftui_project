@@ -33,11 +33,21 @@ struct ProductDetailsView: View {
             if let product = productModel.product{
                               
                 ZStack(alignment: .topTrailing) {
-                    Image(product.image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(10)
-                        .padding(.horizontal, 20)
+                    AsyncImage(url: URL(string: product.image)) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image.resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                        case .failure:
+                            Image(systemName: "photo")
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
                     
                     Button(action: {}, label: {
                         HStack(spacing: 4) {
@@ -89,7 +99,7 @@ struct ProductDetailsView: View {
                     Text("Add to cart")
                         .foregroundColor(.white)
                         .frame(width: 340, height: 46)
-                        .background(Color("TextColor"))
+                        .background(Color("Textcolor"))
                         .cornerRadius(26)
                 })
                 .padding(.horizontal,25)

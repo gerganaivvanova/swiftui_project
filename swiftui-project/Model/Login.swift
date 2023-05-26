@@ -13,15 +13,10 @@ struct LoginResponse: Codable {
 }
 
 struct User: Codable {
-    let id: Int
-    let username: String
     let email: String
-    let provider: String
-    let confirmed: Bool
-    let blocked: Bool
 }
 
 struct LoginRequest: Encodable {
-    let email: String
+    let identifier: String
     let password: String
 }

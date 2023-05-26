@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct Rating: View {
-    let rating: Int
+    var rating: Int
     let maxRating: Int = 5
     
     var body: some View {
@@ -22,13 +22,13 @@ struct Rating: View {
                 Image(systemName: index <= rating ? "star.fill" : "star")
                     .resizable()
                     .frame(width: 12,height: 12)
-                    .foregroundColor(Color("TextColor"))            }
+                    .foregroundColor(Color("Textcolor"))            }
         }
     }
 }
 
 struct Rating_Previews: PreviewProvider {
     static var previews: some View {
-        Rating(rating: 4)
+        Rating(rating: 1)
     }
 }

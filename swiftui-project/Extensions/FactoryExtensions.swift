@@ -8,6 +8,10 @@
 import Factory
 
 extension Container {
+    var jwtStorage: Factory<JWTStorage> {
+        self { JWTStorage.shared }
+    }
+    
     var networkManager: Factory<NetworkManager> {
         self { NetworkManager() }
             .singleton
