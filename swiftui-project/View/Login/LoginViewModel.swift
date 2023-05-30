@@ -6,39 +6,45 @@
 //
 
 import Foundation
+import Factory
 
 class LoginViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var isLoginValid = false
     @Published var showModal = false
+    @Published var isLoggingIn = false
+    
+    private let repository = Container.shared.productRepository()
     
     func validateEmail(_ email: String) -> Bool {
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
         return emailPredicate.evaluate(with: email)
     }
     
-    func validateLogin() {
-        // For demo purposes, hardcoded valid credentials are used.
-        let validEmail = "user@example.com"
-        let validPassword = "password"
-
-        if email == validEmail && password == validPassword {
-            // Login successful
-            self.isLoginValid = true
-            self.password = ""
-        } else {
-            // Login failed
-            self.isLoginValid = false
-            self.password = ""
-            showModal = true;
-            
-        }
-        
+    func isLogInButtonDisabled() -> Bool {
+        return self.email.isEmpty || self.password.isEmpty || self.isLoggingIn
     }
     
-    func isLogInButtonDisabled() -> Bool {
-        return self.email.isEmpty || self.password.isEmpty
+    func login() {
+        Task {
+            do {
+                self.isLoggingIn = true
+                
+                let request = LoginRequest(identifier: self.email, password: self.password)
+                let loginResponse = try await repository.login(request: request)
+                let jwtToken = loginResponse.jwt
+                    // attach the jwtToken
+                JWTStorage.shared.jwtToken = jwtToken
+                self.isLoginValid = true
+                                        
+            } catch {
+                print("Login error: \(error)")
+                isLoggingIn = false
+                self.password = "";
+                showModal = true;
+            }
+        }
     }
     
 }
