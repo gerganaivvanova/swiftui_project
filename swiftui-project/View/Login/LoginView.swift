@@ -21,42 +21,45 @@ struct LoginView: View {
                 Image("Logo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 250, height: 160, alignment: .center)
-                    .padding(.top, 50)
-                    .padding(.bottom,50)
+                    .frame(width: UIConstants.logoWidth, height: UIConstants.logoHeight, alignment: .center)
+                    .padding(.vertical, UIConstants.topBottomPadding)
                 
                 Text("Log in")
-                    .font(.largeTitle)
+                    .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(Color("Textcolor"))
                     .frame(maxWidth:.infinity, alignment: .leading)
                 
-                TextField("Email", text: $loginModel.email)
+                TextField("", text: $loginModel.email, prompt: Text("Email").foregroundColor(Color("Dark Gray")))
                     .autocapitalization(.none)
+                    .font(.callout)
+                    .foregroundColor(Color("Dark Gray"))
                     .padding()
-                    .background(.white)
-                    .cornerRadius(10.0)
-                    .padding(.bottom,20)
+                    .background(Color("Base Color"))
+                    .cornerRadius(UIConstants.cornerRadius)
+                    .padding(.bottom, UIConstants.padding)
                     .onChange(of: loginModel.email) {value in
                         self.isEmailValid = loginModel.validateEmail(value)
                     }
                 if !isEmailValid {
                     Text("Invalid email")
-                        .foregroundColor(.red)
+                        .foregroundColor(Color("Error Color"))
                 }
                 
                 HStack {
                     if isPasswordVisible{
-                        TextField("Password", text: $loginModel.password)
+                        TextField("", text: $loginModel.password, prompt: Text("Password").foregroundColor(Color("Dark Gray")))
                             .autocapitalization(.none)
+                            .font(.callout)
+                            .foregroundColor(Color("Dark Gray"))
                             .padding()
-                            .background(.white)
-                            .foregroundColor(loginModel.isLoginValid ? .black : .red)
+                            .background(Color("Base Color"))
                     } else {
-                        SecureField("Password", text: $loginModel.password)
+                        SecureField("", text: $loginModel.password, prompt: Text("Password")
+                            .foregroundColor(Color("Dark Gray")))
                             .autocapitalization(.none)
                             .padding()
-                            .background(.white)
+                            .background(Color("Base Color"))
                     }
                 }
                 .overlay(
@@ -64,29 +67,30 @@ struct LoginView: View {
                         self.isPasswordVisible.toggle()
                     }) {
                         Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("Dark Gray"))
                     }
-                        .padding(.trailing, 10),
+                        .padding(.trailing, UIConstants.basePadding),
                     alignment: .trailing
                 )
-                .background(.white)
-                .cornerRadius(10.0)
+                .background(Color("Base Color"))
+                .cornerRadius(UIConstants.cornerRadius)
                
                 Button(action:loginModel.login){
                         Text("Log in")
-                            .foregroundColor(.white)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 50)
-                            .background(loginModel.isLogInButtonDisabled() ? .gray : .blue)
-                            .cornerRadius(5.0)
-                            .padding(.top, 50)
+                            .foregroundColor(Color("Base Color"))
+                            .font(.callout)
+                            .padding(.vertical, UIConstants.basePadding)
+                            .frame(maxWidth: .infinity)
+                            .background(loginModel.isLogInButtonDisabled() ? Color("Disabled Color") : Color("Textcolor"))
+                            .cornerRadius(UIConstants.mediumCornerRadius)
+                            .padding(.top, UIConstants.topBottomPadding)
                     }
                 .disabled(loginModel.isLogInButtonDisabled() || !self.isEmailValid)
                 .navigationDestination(isPresented: $loginModel.isLoginValid, destination: {ProductDetailsView()})
             }
             
             .frame(maxWidth: .infinity,maxHeight: .infinity)
-            .padding(.horizontal,26)
+            .padding(.horizontal,UIConstants.horizontalPadding)
             .background(Image("Login Background")
                 .resizable()
                 .scaledToFill()

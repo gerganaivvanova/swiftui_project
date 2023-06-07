@@ -7,8 +7,7 @@
 
 import Foundation
  
-protocol RepositoryProtocol {
-    func login(request: LoginRequest) async throws -> LoginResponse
+protocol ProductRepositoryProtocol {
     
     func fetchProducts() async throws -> [Product]
     

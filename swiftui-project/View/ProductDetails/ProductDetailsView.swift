@@ -14,12 +14,12 @@ struct ProductDetailsView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading) {
+        VStack(alignment: .center) {
             
             HStack {
                 Spacer()
                 Text("Product details")
-                    .font(.title3)
+                    .font(.title2)
                 
                 Spacer()
                 Button(action: {}, label: {
@@ -40,8 +40,8 @@ struct ProductDetailsView: View {
                         case .success(let image):
                             image.resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .cornerRadius(10)
-                                .padding(.horizontal, 20)
+                                .cornerRadius(UIConstants.cornerRadius)
+                                .padding(.horizontal, UIConstants.padding)
                         case .failure:
                             Image(systemName: "photo")
                         @unknown default:
@@ -50,26 +50,26 @@ struct ProductDetailsView: View {
                     }
                     
                     Button(action: {}, label: {
-                        HStack(spacing: 4) {
+                        HStack(spacing: UIConstants.mediumSpacing) {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(.green)
                             Text("In stock")
                                 .foregroundColor(.black)
                             
                         }
-                        .padding(10)
-                        .background(.white)
-                        .cornerRadius(26)
-                        .padding(.vertical,15)
-                        .padding(.horizontal, 30)
+                        .padding(UIConstants.basePadding)
+                        .background(Color("Base Color"))
+                        .cornerRadius(UIConstants.mediumCornerRadius)
+                        .padding(.vertical, UIConstants.basePadding)
+                        .padding(.horizontal, UIConstants.horizontalPadding) //30
                     })
                 }
                 
                 
                 VStack(alignment: .leading) {
-                    HStack(spacing:1){
+                    HStack(spacing: UIConstants.spacing){
                         Text(product.title)
-                            .font(.title3)
+                            .font(.title2)
                             .bold()
                         Spacer()
                         
@@ -79,35 +79,39 @@ struct ProductDetailsView: View {
                     
                     Text("Category: \(product.category)")
                         .font(.caption)
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color("Dark Gray"))
                     
                     Text(product.description)
-                        .font(.body)
+                        .font(.callout)
                         .lineLimit(nil)
                         .padding(.vertical)
-                        .frame(width: 300)
+                        .frame(width: UIConstants.textWidth)
                     
                     Text(String(format: "$%.2f", Double(product.price)))
                         .font(.title)
                         .bold()
                         .padding(.vertical)
                 }
-                .padding(.horizontal,20)
-                .padding(.bottom,50)
+                .padding(.horizontal, UIConstants.padding)
+                .padding(.bottom, UIConstants.topBottomPadding)
+            } else {
+                ProgressView(){
+                    Text("Loading...")
+                                        }
+                .padding()
             }
-                Button(action: {}, label: {
+            
+            Button(action: {}, label: {
                     Text("Add to cart")
                         .foregroundColor(.white)
-                        .frame(width: 340, height: 46)
+                        //.frame(width: 340, height: 46)
+                        .padding(.vertical, UIConstants.basePadding)
+                        .frame(maxWidth: .infinity)
                         .background(Color("Textcolor"))
-                        .cornerRadius(26)
+                        .cornerRadius(UIConstants.mediumCornerRadius)
                 })
-                .padding(.horizontal,25)
-            
-            //} else {
-            // ProgressView()
-            //}            }
-            
+            .padding(.horizontal, UIConstants.horizontalPadding)
+        }
             .navigationBarBackButtonHidden(true)
             .onAppear{
                 productModel.fetchProductDetails()
@@ -122,4 +126,3 @@ struct ProductDetailsView: View {
             ProductDetailsView()
         }
     }
-}

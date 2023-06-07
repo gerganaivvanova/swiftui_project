@@ -12,6 +12,7 @@ import Factory
 class NetworkManager {
     private let session: Session
     
+    
     init() {
         // Create custom session configuration
         let configuration = URLSessionConfiguration.default
