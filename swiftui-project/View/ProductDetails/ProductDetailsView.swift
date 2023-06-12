@@ -57,16 +57,16 @@ struct ProductDetailsView: View {
                                 .foregroundColor(.black)
                             
                         }
-                        .padding(UIConstants.basePadding)
-                        .background(Color("Base Color"))
+                        .padding(UIConstants.smallPadding)
+                        .background(Color("BaseColor"))
                         .cornerRadius(UIConstants.mediumCornerRadius)
-                        .padding(.vertical, UIConstants.basePadding)
-                        .padding(.horizontal, UIConstants.horizontalPadding) //30
+                        .padding(.vertical, UIConstants.smallPadding)
+                        .padding(.horizontal, UIConstants.bigPadding)
                     })
                 }
                 
                 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: UIConstants.spacing) {
                     HStack(spacing: UIConstants.spacing){
                         Text(product.title)
                             .font(.title2)
@@ -79,7 +79,7 @@ struct ProductDetailsView: View {
                     
                     Text("Category: \(product.category)")
                         .font(.caption)
-                        .foregroundColor(Color("Dark Gray"))
+                        .foregroundColor(Color("DarkGray"))
                     
                     Text(product.description)
                         .font(.callout)
@@ -93,7 +93,7 @@ struct ProductDetailsView: View {
                         .padding(.vertical)
                 }
                 .padding(.horizontal, UIConstants.padding)
-                .padding(.bottom, UIConstants.topBottomPadding)
+                .padding(.bottom, UIConstants.largePadding)
             } else {
                 ProgressView(){
                     Text("Loading...")
@@ -104,13 +104,12 @@ struct ProductDetailsView: View {
             Button(action: {}, label: {
                     Text("Add to cart")
                         .foregroundColor(.white)
-                        //.frame(width: 340, height: 46)
-                        .padding(.vertical, UIConstants.basePadding)
+                        .padding(.vertical, UIConstants.smallPadding)
                         .frame(maxWidth: .infinity)
-                        .background(Color("Textcolor"))
+                        .background(Color("TextColor"))
                         .cornerRadius(UIConstants.mediumCornerRadius)
                 })
-            .padding(.horizontal, UIConstants.horizontalPadding)
+            .padding(.horizontal, UIConstants.bigPadding)
         }
             .navigationBarBackButtonHidden(true)
             .onAppear{

@@ -17,11 +17,11 @@ struct Rating: View {
             .font(.body)
             .bold()
             
-            ForEach(1...Limits.maxRating, id: \.self) { index in
+            ForEach(1...Limits.maxRating , id: \.self) { index in
                 Image(systemName: index <= rating ? "star.fill" : "star")
                     .resizable()
                     .frame(width: UIConstants.ratingStar,height: UIConstants.ratingStar)
-                    .foregroundColor(Color("Textcolor"))
+                    .foregroundColor(Color("TextColor"))
             }
         }
     }

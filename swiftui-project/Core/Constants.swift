@@ -16,10 +16,10 @@ struct UIConstants {
     static let logoWidth = CGFloat(256)
     static let logoHeight = CGFloat(162)
     
-    static let basePadding = CGFloat(10)
+    static let smallPadding = CGFloat(10)
     static let padding = CGFloat(20)
-    static let horizontalPadding = CGFloat(25)
-    static let topBottomPadding = CGFloat(50)
+    static let bigPadding = CGFloat(25)
+    static let largePadding = CGFloat(50)
     
     static let spacing = CGFloat(2)
     static let mediumSpacing = CGFloat(4)
