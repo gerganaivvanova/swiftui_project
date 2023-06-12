@@ -4,11 +4,7 @@ import Factory
 class ProductViewModel: ObservableObject {
     @Published var product: Product?
     
-    private let repository: RepositoryProtocol
-    
-    init(repository: RepositoryProtocol = ProductRepository()){
-        self.repository = repository
-    }
+    private let repository = Container.shared.productRepository()
     
     func fetchProductDetails(){
         Task{

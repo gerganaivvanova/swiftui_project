@@ -10,19 +10,19 @@ import SwiftUI
 
 struct Rating: View {
     var rating: Int
-    let maxRating: Int = 5
     
     var body: some View {
         HStack(spacing: 2) {
             Text("\(rating)")
-            .font(.headline)
+            .font(.body)
             .bold()
             
-            ForEach(1...maxRating, id: \.self) { index in
+            ForEach(1...Limits.maxRating , id: \.self) { index in
                 Image(systemName: index <= rating ? "star.fill" : "star")
                     .resizable()
-                    .frame(width: 12,height: 12)
-                    .foregroundColor(Color("Textcolor"))            }
+                    .frame(width: UIConstants.ratingStar,height: UIConstants.ratingStar)
+                    .foregroundColor(Color("TextColor"))
+            }
         }
     }
 }

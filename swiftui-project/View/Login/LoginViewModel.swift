@@ -15,7 +15,7 @@ class LoginViewModel: ObservableObject {
     @Published var showModal = false
     @Published var isLoggingIn = false
     
-    private let repository = Container.shared.productRepository()
+    private let repository = Container.shared.loginRepository()
     
     func validateEmail(_ email: String) -> Bool {
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")

@@ -20,4 +20,8 @@ extension Container {
     var productRepository: Factory<ProductRepository> {
         self { ProductRepository() }
     }
+    
+    var loginRepository: Factory<LoginRepository> {
+        self { LoginRepository() }
+    }
 }
