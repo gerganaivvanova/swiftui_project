@@ -10,28 +10,13 @@ import Factory
 import Alamofire
 
 struct ProductDetailsView: View {
+    var product: Product
     @StateObject var productModel = ProductViewModel()
     
     var body: some View {
         
         VStack(alignment: .center) {
-            
-            HStack {
-                Spacer()
-                Text("Product details")
-                    .font(.title2)
-                
-                Spacer()
-                Button(action: {}, label: {
-                    Image(systemName: "cart.fill")
-                        .font(.title2)
-                        .foregroundColor(.black)
-                })
-            }
-            .padding(.horizontal)
-            
-            if let product = productModel.product{
-                              
+                          
                 ZStack(alignment: .topTrailing) {
                     AsyncImage(url: URL(string: product.image)) { phase in
                         switch phase {
@@ -50,11 +35,11 @@ struct ProductDetailsView: View {
                     }
                     
                     Button(action: {}, label: {
-                        HStack(spacing: UIConstants.mediumSpacing) {
+                        HStack(spacing: UIConstants.spacing) {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(.green)
                             Text("In stock")
-                                .foregroundColor(.black)
+                                .foregroundColor(Color("Black"))
                             
                         }
                         .padding(UIConstants.smallPadding)
@@ -66,8 +51,8 @@ struct ProductDetailsView: View {
                 }
                 
                 
-                VStack(alignment: .leading, spacing: UIConstants.spacing) {
-                    HStack(spacing: UIConstants.spacing){
+                VStack(alignment: .leading, spacing: UIConstants.smallSpacing) {
+                    HStack(spacing: UIConstants.smallSpacing){
                         Text(product.title)
                             .font(.title2)
                             .bold()
@@ -94,12 +79,6 @@ struct ProductDetailsView: View {
                 }
                 .padding(.horizontal, UIConstants.padding)
                 .padding(.bottom, UIConstants.largePadding)
-            } else {
-                ProgressView(){
-                    Text("Loading...")
-                                        }
-                .padding()
-            }
             
             Button(action: {}, label: {
                     Text("Add to cart")
@@ -111,10 +90,12 @@ struct ProductDetailsView: View {
                 })
             .padding(.horizontal, UIConstants.bigPadding)
         }
-            .navigationBarBackButtonHidden(true)
-            .onAppear{
-                productModel.fetchProductDetails()
-            }           
+        .navigationBarTitle("Product details")
+        .font(.title2)
+        .navigationBarItems(trailing:
+                CartButton(productsCounter: 4)
+                .font(.title2)
+        )
         }
     }
     
@@ -122,6 +103,6 @@ struct ProductDetailsView: View {
     
     struct ProductDetailsView_Previews: PreviewProvider {
         static var previews: some View {
-            ProductDetailsView()
+            ProductDetailsView(product: Product(id: 1, title: "Test", description: "Test", shortDescription: "Test", stock: 1, price: 78, rating: 1, image: "Test", category: "Test"))
         }
     }

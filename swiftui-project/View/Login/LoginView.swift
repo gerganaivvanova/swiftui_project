@@ -21,7 +21,7 @@ struct LoginView: View {
                 Image("Logo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: UIConstants.logoWidth, height: UIConstants.logoHeight, alignment: .center)
+                    .frame(width: UIConstants.width, height: UIConstants.height, alignment: .center)
                     .padding(.vertical, UIConstants.largePadding)
                 
                 Text("Log in")
@@ -86,7 +86,7 @@ struct LoginView: View {
                             .padding(.top, UIConstants.largePadding)
                     }
                 .disabled(loginModel.isLogInButtonDisabled() || !self.isEmailValid)
-                .navigationDestination(isPresented: $loginModel.isLoginValid, destination: {ProductDetailsView()})
+                .navigationDestination(isPresented: $loginModel.isLoginValid, destination: {HomeScreenView()})
             }
             
             .frame(maxWidth: .infinity,maxHeight: .infinity)
