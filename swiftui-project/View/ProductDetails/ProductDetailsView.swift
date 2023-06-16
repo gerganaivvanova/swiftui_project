@@ -90,12 +90,13 @@ struct ProductDetailsView: View {
                 })
             .padding(.horizontal, UIConstants.bigPadding)
         }
-        .navigationBarTitle("Product details")
-        .font(.title2)
-        .navigationBarItems(trailing:
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 CartButton(productsCounter: 4)
-                .font(.title2)
-        )
+            }
+        }
+        .navigationBarTitle("Product details", displayMode: .inline)
+        .font(.title2)
         }
     }
     

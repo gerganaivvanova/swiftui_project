@@ -2,24 +2,22 @@ import SwiftUI
 import Factory
 
 class HomeScreenViewModel: ObservableObject {
-    @Published var allProducts: [Product]
-    @Published var filteredProducts: [Product] = []
+    @Published var allProducts: [Product]=[]
+    @Published var filteredProducts: [Product]=[]
+    @Published var isLoading = false
     
     private let repository = Container.shared.productRepository()
     
-    init(allProducts: [Product]) {
-        self.allProducts = allProducts
-        self.filteredProducts = allProducts
-    }
-    
     func fetchAllProducts(){
+        isLoading = true
         Task{
             do {
                 allProducts = try await repository.fetchProducts()
-                filteredProducts = allProducts
+                self.filteredProducts = allProducts
             } catch {
                 print("Error fetching all products data: \(error)")
             }
+            isLoading = false
         }
     }
     

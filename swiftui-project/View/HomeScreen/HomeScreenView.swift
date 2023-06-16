@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct HomeScreenView: View {
-    @StateObject var allProductsModel = HomeScreenViewModel(allProducts: [])
+    @StateObject var allProductsModel = HomeScreenViewModel()
     @State private var searchText = ""
     
     var body: some View {
@@ -30,7 +30,7 @@ struct HomeScreenView: View {
             }
             .padding()
             
-            if allProductsModel.allProducts.isEmpty {
+            if (allProductsModel.isLoading) {
                 ProgressView(){
                     Text("Loading...")
                 }
@@ -52,24 +52,30 @@ struct HomeScreenView: View {
                 Spacer()
             }
     }
-        .navigationBarTitle("Home")
-        .font(.title2)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Text("Home")
+                        .font(.title2)
+                        .bold()
+                    Spacer()
+                }
+            }
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Image(systemName: "person.circle.fill")
+                    .font(.title2)
+                CartButton(productsCounter: 4)
+            }
+        }
         .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+
         .searchable(text: $searchText, prompt: "Search")
         .onChange(of: searchText){ searchedValue in
             allProductsModel.filterProducts(by: searchedValue)
             }
         
         .onAppear{allProductsModel.fetchAllProducts()}
-        .navigationBarItems(trailing:
-            HStack(spacing: UIConstants.bigSpacing){
-                Image(systemName: "person.circle.fill")
-                .font(.title2)
-                        
-                CartButton(productsCounter: 4)
-                .font(.title2)
-            }
-        )
         .background(Image("HomeScreenBackground")
             .resizable()
             .scaledToFill()

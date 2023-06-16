@@ -12,7 +12,7 @@ struct ProductCard: View {
     var product: Product
     
     var body: some View {
-        VStack(spacing:20){
+        VStack(spacing:UIConstants.bigSpacing){
             HStack{
                 
                 AsyncImage(url: URL(string: product.image)) { phase in
