@@ -12,9 +12,10 @@ struct Rating: View {
     var rating: Int
     
     var body: some View {
-        HStack(spacing: 2) {
+        HStack(spacing: UIConstants.smallSpacing) {
             Text("\(rating)")
             .font(.body)
+            .foregroundColor(Color("Black"))
             .bold()
             
             ForEach(1...Limits.maxRating , id: \.self) { index in
