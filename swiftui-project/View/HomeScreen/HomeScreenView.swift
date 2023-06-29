@@ -11,6 +11,8 @@ import SwiftUI
 struct HomeScreenView: View {
     @StateObject var allProductsModel = HomeScreenViewModel()
     @State private var searchText = ""
+    @State private var areFiltersPresented = false
+    @EnvironmentObject var cartManager: CartManager
     
     var body: some View {
         VStack(alignment: .center, spacing: UIConstants.smallSpacing) {
@@ -21,11 +23,23 @@ struct HomeScreenView: View {
                     .padding(UIConstants.smallPadding)
                 
                 Spacer()
-                Button(action: {}, label: {
-                    Image(systemName: "line.horizontal.3")
-                        .font(.title2)
-                        .foregroundColor(Color("Black"))
-                        .padding()
+                Button(action: { areFiltersPresented = true }, label: {
+                    ZStack(alignment: .topTrailing){
+                        Image(systemName: "line.horizontal.3")
+                            .font(.title2)
+                            .foregroundColor(Color("Black"))
+                        
+                        if allProductsModel.appliedFilterCount > 0 {
+                            Text("\(allProductsModel.appliedFilterCount)")
+                                .font(.caption2).bold()
+                                .foregroundColor(Color("BaseColor"))
+                                .frame(width: UIConstants.labelsWidth, height: UIConstants.labelsWidth)
+                                .background(Color("TextColor"))
+                                .cornerRadius(UIConstants.largeCornerRadius)
+                                .offset(x: UIConstants.offsetX, y: UIConstants.offsetY)
+                       }
+                    }
+                    .padding()
                 })
             }
             .padding()
@@ -62,17 +76,34 @@ struct HomeScreenView: View {
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Image(systemName: "person.circle.fill")
-                    .font(.title2)
-                CartButton(productsCounter: 4)
+                NavigationLink(destination: ProfileView()){
+                    Image(systemName: "person.circle.fill")
+                        .font(.title2)
+                }.foregroundColor(Color("Black"))
+                CartButton(productsCounter: cartManager.cart.count)
             }
+        }
+        .sheet(isPresented: $areFiltersPresented){
+            FiltersSheet(
+                
+                allCategories: Set(allProductsModel.filteredProducts.map {$0.category}),
+                isPresented: $areFiltersPresented,
+                selectedRating: $allProductsModel.selectedRating,
+                selectedPriceRange: $allProductsModel.selectedPriceRange,
+                onApply: { selectedCategories in
+                    allProductsModel.selectedCategories = selectedCategories
+                    allProductsModel.applyFilters()
+                },
+             allProductsModel: allProductsModel
+            )
+            Spacer()
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
 
         .searchable(text: $searchText, prompt: "Search")
         .onChange(of: searchText){ searchedValue in
-            allProductsModel.filterProducts(by: searchedValue)
+            allProductsModel.searchProducts(by: searchedValue)
             }
         
         .onAppear{allProductsModel.fetchAllProducts()}
@@ -81,13 +112,6 @@ struct HomeScreenView: View {
             .scaledToFill()
             .edgesIgnoringSafeArea(.all)
         )
-        
     }
-}
-    
-    struct HomeScreenView_Previews: PreviewProvider {
-        static var previews: some View {
-            HomeScreenView()
-        }
         
 }

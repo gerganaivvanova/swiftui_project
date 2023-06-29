@@ -16,4 +16,9 @@ class ProductViewModel: ObservableObject {
         }
     }
     
+    func reduceStock(for product: Product) -> Product {
+        var updatedProduct = product
+        updatedProduct.stock -= 1
+        return updatedProduct
+    }
 }

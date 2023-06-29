@@ -7,12 +7,17 @@
 
 import SwiftUI
 
+class CartManager: ObservableObject {
+    @Published var cart: [Product] = []
+    @Published var orderHistory: [Order] = []
+}
+
 struct LoginView: View {
     @StateObject var loginModel: LoginViewModel = LoginViewModel()
+    @StateObject private var cartManager = CartManager()
     
     @State private var isPasswordVisible = false;
     @State private var isEmailValid = true;
-    
     @State private var path: [String] = [];
     
     var body: some View {
@@ -87,6 +92,7 @@ struct LoginView: View {
                     }
                 .disabled(loginModel.isLogInButtonDisabled() || !self.isEmailValid)
                 .navigationDestination(isPresented: $loginModel.isLoginValid, destination: {HomeScreenView()})
+                .navigationBarHidden(true)
             }
             
             .frame(maxWidth: .infinity,maxHeight: .infinity)
@@ -101,15 +107,7 @@ struct LoginView: View {
                       message: Text("Your email or password is incorrect. Please try again."),
                       dismissButton: .default(Text("OK")))
             }
-            
         }
-    }
-    
-    struct LoginView_Previews: PreviewProvider {
-        static var previews: some View {
-            LoginView()
-        }
-        
-        
+        .environmentObject(cartManager)
     }
 }
