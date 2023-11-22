@@ -13,7 +13,10 @@ struct UIConstants {
     static let largeCornerRadius = CGFloat(50)
     
     static let ratingStar = CGFloat(12)
+    static let bigRatingStar = CGFloat(30)
     
+    static let cartImageWidth = CGFloat(55)
+    static let rangeFilterWidth = CGFloat(32)
     static let smallWidth = CGFloat(130)
     static let width = CGFloat(256)
     
@@ -32,6 +35,10 @@ struct UIConstants {
     
     static let minTextWidth = CGFloat(200)
     static let textWidth = CGFloat(300)
+    
+    static let labelsWidth = CGFloat(15)
+    static let offsetX = CGFloat(6)
+    static let offsetY = CGFloat(-6)
 }
 
 struct Limits {

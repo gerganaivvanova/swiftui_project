@@ -10,8 +10,9 @@ import Factory
 import Alamofire
 
 struct ProductDetailsView: View {
-    var product: Product
+    @State var product: Product
     @StateObject var productModel = ProductViewModel()
+    @EnvironmentObject var cartManager: CartManager
     
     var body: some View {
         
@@ -34,22 +35,23 @@ struct ProductDetailsView: View {
                         }
                     }
                     
-                    Button(action: {}, label: {
                         HStack(spacing: UIConstants.spacing) {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.green)
-                            Text("In stock")
-                                .foregroundColor(Color("Black"))
-                            
+                            if(product.stock > 0 ){
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.green)
+                                Text("In stock")
+                                    .foregroundColor(Color("Black"))
+                            } else {
+                                Text("Out of stock")
+                                    .foregroundColor(Color("ErrorColor"))
+                            }
                         }
                         .padding(UIConstants.smallPadding)
                         .background(Color("BaseColor"))
                         .cornerRadius(UIConstants.mediumCornerRadius)
                         .padding(.vertical, UIConstants.smallPadding)
                         .padding(.horizontal, UIConstants.bigPadding)
-                    })
                 }
-                
                 
                 VStack(alignment: .leading, spacing: UIConstants.smallSpacing) {
                     HStack(spacing: UIConstants.smallSpacing){
@@ -80,23 +82,31 @@ struct ProductDetailsView: View {
                 .padding(.horizontal, UIConstants.padding)
                 .padding(.bottom, UIConstants.largePadding)
             
-            Button(action: {}, label: {
-                    Text("Add to cart")
-                        .foregroundColor(.white)
-                        .padding(.vertical, UIConstants.smallPadding)
-                        .frame(maxWidth: .infinity)
-                        .background(Color("TextColor"))
-                        .cornerRadius(UIConstants.mediumCornerRadius)
-                })
-            .padding(.horizontal, UIConstants.bigPadding)
+                Button(action: {
+                    cartManager.cart.append(product)
+                   product = productModel.reduceStock(for: product)
+                }, label: {
+                        Text("Add to cart")
+                            .foregroundColor(.white)
+                            .padding(.vertical, UIConstants.smallPadding)
+                            .frame(maxWidth: .infinity)
+                            .background(cartManager.cart.contains{$0.id == product.id} ? Color("DisabledColor") : Color("TextColor"))
+                            .cornerRadius(UIConstants.mediumCornerRadius)
+                    })
+                .padding(.horizontal, UIConstants.bigPadding)
+                .disabled(cartManager.cart.contains{$0.id == product.id})
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                CartButton(productsCounter: 4)
+                CartButton(productsCounter: cartManager.cart.count)
             }
         }
         .navigationBarTitle("Product details", displayMode: .inline)
         .font(.title2)
+        .background(Image("HomeScreenBackground")
+            .resizable()
+            .scaledToFill()
+            .edgesIgnoringSafeArea(.all))
         }
     }
     

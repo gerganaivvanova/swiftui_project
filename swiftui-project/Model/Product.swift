@@ -12,7 +12,7 @@ struct Product: Codable, Identifiable {
     let title: String
     let description: String
     let shortDescription: String
-    let stock: Int
+    var stock: Int
     let price: Int
     let rating: Int
     let image: String
